@@ -8,11 +8,59 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <ion-card *ngIf="dish">
+    <img src="{{ BaseURL + dish.image }}" alt="{{ dish.image }}">
+    <ion-card-content>
+      <ion-card-title>
+        {{ dish.name | uppercase }}
+      </ion-card-title>
+      <p> {{ dish.description }} </p>
+    </ion-card-content>
+  </ion-card>
+  <div [hidden]="dish || dishErrMsg">
+    <ion-spinner></ion-spinner>
+    <h4>Loading ... Please Wait</h4>
+  </div>
+  <div *ngIf="dishErrMsg">
+    <h2>Error</h2>
+    <h4>{{ dishErrMsg }}</h4>
+  </div>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <ion-card *ngIf="promotion">
+    <img src="{{ BaseURL + promotion.image }}" alt="{{ promotion.image }}">
+    <ion-card-content>
+      <ion-card-title>
+        {{ promotion.name | uppercase }}
+      </ion-card-title>
+      <p> {{ promotion.description }} </p>
+    </ion-card-content>
+  </ion-card>
+  <div [hidden]="promotion || promoErrMsg">
+    <ion-spinner></ion-spinner>
+    <h4>Loading ... Please Wait</h4>
+  </div>
+  <div *ngIf="promoErrMsg">
+    <h2>Error</h2>
+    <h4>{{ promoErrMsg }}</h4>
+  </div>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <ion-card *ngIf="leader">
+    <img src="{{ BaseURL + leader.image }}" alt="{{ leader.image }}">
+    <ion-card-content>
+      <ion-card-title>
+        {{ leader.name | uppercase }}
+      </ion-card-title>
+      <p>{{ leader.designation }}</p>
+      <p>{{ leader.description }}</p>
+    </ion-card-content>
+  </ion-card>
+  <div [hidden]="leader || leaderErrMsg">
+    <ion-spinner></ion-spinner>
+    <h4>Loading ... Please Wait</h4>
+  </div>
+  <div *ngIf="leaderErrMsg">
+    <h2>Error</h2>
+    <h4>{{ leaderErrMsg }}</h4>
+  </div>
+  <!-- <button ion-button secondary menuToggle>Toggle Menu</button> -->
 </ion-content>
