@@ -16,6 +16,22 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="card-background-image">
+  <div *ngIf="dishes">
+    <ion-card *ngFor="let dish of dishes" (click)="dishSelected($event, dish)">
+      <img src="{{ BaseURL + dish.image }}" alt="{{ dish.image }}">
+      <div class="card-title">{{ dish.name }}</div>
+      <div class="card-subtitle">{{ dish.description }}</div>
+    </ion-card>
+  </div>
 
+  <div [hidden]="dishes || errMsg">
+    <ion-spinner></ion-spinner>
+    <h4>Loading ... Please Wait</h4>
+  </div>
+
+  <div *ngIf="errMsg">
+    <h2>Error</h2>
+    <h4>{{ errMsg }}</h4>
+  </div>
 </ion-content>
