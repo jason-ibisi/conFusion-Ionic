@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ActionSheetController, ModalController } from 'ionic-angular';
 import { Dish } from '../../shared/dish';
 import { Comment } from '../../shared/comment';
+import { AddcommentPage } from '../../pages/addcomment/addcomment';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 
 /**
@@ -27,6 +28,8 @@ export class DishdetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private favoriteService: FavoriteProvider,
     private toastCntrl: ToastController,
+    private actionSheetCntrl: ActionSheetController,
+    private modalCntrl: ModalController,
     @Inject('BaseURL') private BaseURL) {
       this.dish = navParams.get('dish');
       this.favorite = this.favoriteService.isFavorite(this.dish.id);
@@ -54,6 +57,42 @@ export class DishdetailPage {
   removeFromFavorites() {
     console.log('Removing from Favorites', this.dish.id);
     this.favorite = !this.favoriteService.removeFavorite(this.dish.id);
+  }
+
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCntrl.create({
+      title: 'Select Actions',
+      buttons: [
+        {
+          text: 'Add to Favorites',
+          handler: () => {
+            this.addToFavorites();
+          }
+        },
+        {
+          text: 'Add Comment',
+          handler: () => {
+            console.log('Add Comment clicked!');
+            let modal = this.modalCntrl.create(AddcommentPage);
+            modal.onDidDismiss(comment => {
+              console.log(comment);
+              comment['date'] = Date.now();
+              this.dish.comments.push(comment);
+            });
+            modal.present();
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Action Cancelled');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
   }
 
 }
