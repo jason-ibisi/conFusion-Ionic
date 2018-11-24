@@ -18,3 +18,12 @@
 .action-sheet-group {
     overflow: auto !important;
 }
+
+$ly-gray: #ddd;
+$background-dark: #512da8;
+$background-light: #9575cd;
+$background-pale: #d1c4e9;
+
+.background-pale {
+  background-color: $background-pale;
+}

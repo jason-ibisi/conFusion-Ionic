@@ -15,7 +15,7 @@ import { LeaderProvider } from '../../providers/leader/leader';
   selector: 'page-about',
   templateUrl: 'about.html',
 })
-export class AboutPage {
+export class AboutPage implements OnInit {
 
   leaders: Leader[];
   errMsg: string;
