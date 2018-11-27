@@ -4,6 +4,7 @@ import { Dish } from '../../shared/dish';
 import { Comment } from '../../shared/comment';
 import { AddcommentPage } from '../../pages/addcomment/addcomment';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 /**
  * Generated class for the DishdetailPage page.
@@ -30,6 +31,7 @@ export class DishdetailPage {
     private toastCntrl: ToastController,
     private actionSheetCntrl: ActionSheetController,
     private modalCntrl: ModalController,
+    private socialSharing: SocialSharing,
     @Inject('BaseURL') private BaseURL) {
       this.dish = navParams.get('dish');
       this.favorite = this.favoriteService.isFavorite(this.dish.id);
@@ -80,6 +82,52 @@ export class DishdetailPage {
               this.dish.comments.push(comment);
             });
             modal.present();
+          }
+        },
+        {
+          text: 'Share via Facebook',
+          handler: () => {
+            this.socialSharing.shareViaFacebook(
+              this.dish.name + ' -- ' + this.dish.description,
+              this.BaseURL + this.dish.image, '')
+              .then(() => { console.log('Posted successfully to Facebook');
+                this.toastCntrl.create({
+                  message: 'Posted successfully to Facebook',
+                  position: 'middle',
+                  duration: 2000
+                }).present(); })
+              .catch(() => {
+                console.log('Failed to post to Facebook');
+                this.toastCntrl.create({
+                  message: 'Failed to post to Facebook',
+                  position: 'middle',
+                  duration: 2000
+                }).present();
+              });
+          }
+        },
+        {
+          text: 'Share via Twitter',
+          handler: () => {
+            this.socialSharing.shareViaTwitter(
+              this.dish.name + ' -- ' + this.dish.description,
+              this.BaseURL + this.dish.image, '')
+              .then(() => {
+                console.log('Posted successfully to Twitter');
+                this.toastCntrl.create({
+                  message: 'Posted successfully to Twitter',
+                  position: 'middle',
+                  duration: 2000
+                }).present();
+              })
+              .catch(() => {
+                console.log('Failed to post to Twitter');
+                this.toastCntrl.create({
+                  message: 'Failed to post to Twitter',
+                  position: 'middle',
+                  duration: 2000
+                }).present();
+              });
           }
         },
         {
