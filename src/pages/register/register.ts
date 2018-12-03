@@ -60,7 +60,28 @@ export class RegisterPage {
       .then((imageData) => {
         this.image = imageData;
       },
-      (err) => { console.log('Error obtaining picture') });
+      (err) => { console.log('Error obtaining picture'); });
+  }
+
+  getPictureFromLibrary() {
+    const options: CameraOptions = {
+      quality: 100,
+      targetHeight: 100,
+      targetWidth: 100,
+      correctOrientation: true,
+      allowEdit: true,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    };
+
+    this.camera.getPicture(options)
+      .then((imageData) => {
+        this.image = imageData;
+      },
+        (err) => { console.log('Error obtaining picture from library'); });
+
   }
 
   onSubmit() {

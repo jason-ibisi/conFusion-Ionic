@@ -20,6 +20,7 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
+    "@ionic-native/call-number": "^4.17.0",
     "@ionic-native/camera": "^4.17.0",
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/email-composer": "^4.17.0",
@@ -30,6 +31,7 @@
     "@ionic-native/status-bar": "~4.15.0",
     "@ionic/storage": "2.2.0",
     "ajv": "^5.0.0",
+    "call-number": "1.0.1",
     "cordova-android": "7.1.4",
     "cordova-android-support-gradle-release": "2.0.1",
     "cordova-plugin-app-event": "1.2.1",
@@ -76,7 +78,8 @@
       "cordova-android-support-gradle-release": {
         "ANDROID_SUPPORT_VERSION": "27.+"
       },
-      "cordova-plugin-network-information": {}
+      "cordova-plugin-network-information": {},
+      "mx.ferreyra.callnumber": {}
     },
     "platforms": [
       "android"
